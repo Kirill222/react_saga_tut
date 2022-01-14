@@ -4,13 +4,15 @@ import {take} from 'redux-saga/effects'
 
 //for business actions. API requests, requests to cache, and other async actions
 export function* workerSaga() {
-
+    console.log('click from saga')
 }
 
 export function* watchClickSaga() {
-    yield take('CLICK')                //CLICK is a type of the action that we will dispatch
+    while (true) {
+        yield take('CLICK')                //CLICK is a type of the action that we will dispatch
 
-    console.log('click from saga')
+        yield workerSaga()
+    }
 }
 
 export default function* rootSaga() {
