@@ -1,4 +1,4 @@
-import {take} from 'redux-saga/effects'
+import {take, takeEvery} from 'redux-saga/effects'
 
 //take - указывает middleware ждать выполнения какого либо действия. По сути ждет какого либо диспатча в нашем приложении
 
@@ -8,11 +8,9 @@ export function* workerSaga() {
 }
 
 export function* watchClickSaga() {
-    while (true) {
-        yield take('CLICK')                //CLICK is a type of the action that we will dispatch
 
-        yield workerSaga()
-    }
+        yield takeEvery('CLICK', workerSaga)      //CLICK is a type of the action that we will dispatch
+
 }
 
 export default function* rootSaga() {
