@@ -1,15 +1,22 @@
 import {take, takeEvery} from 'redux-saga/effects'
 
-//take - указывает middleware ждать выполнения какого либо действия. По сути ждет какого либо диспатча в нашем приложении
+async function getPeople() {
+    const request = await fetch('http://swapi.dev/api/people')
 
-//for business actions. API requests, requests to cache, and other async actions
+    const data = await request.json()
+
+    return data
+}
+
+
 export function* workerSaga() {
-    console.log('click from saga')
+    const data = yield getPeople()
+    console.log(data)
 }
 
 export function* watchClickSaga() {
 
-        yield takeEvery('CLICK', workerSaga)      //CLICK is a type of the action that we will dispatch
+        yield takeEvery('CLICK', workerSaga)      
 
 }
 
