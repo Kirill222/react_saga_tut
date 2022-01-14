@@ -1,4 +1,7 @@
-import {take, takeEvery} from 'redux-saga/effects'
+import {takeEvery, put} from 'redux-saga/effects'
+
+//put - указывает middleware отправить действие в store - то же самое что и сделать dispatch
+//перед каждым оператором Redux Saga нужно ставить yield
 
 async function getPeople() {
     const request = await fetch('http://swapi.dev/api/people')
@@ -11,7 +14,8 @@ async function getPeople() {
 
 export function* workerSaga() {
     const data = yield getPeople()
-    console.log(data)
+    
+    yield put({type: 'SET_PEOPLE', payload: data.results})
 }
 
 export function* watchClickSaga() {
